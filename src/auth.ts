@@ -10,8 +10,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           name: profile.name,
           email: profile.email,
           image: profile.picture,
-          role: profile["kayraexport/role"] ?? "user",
+          role: profile["kayraexport/role"]
         }
+      },
+      authorization: {
+        params: {
+          prompt: "login",
+        },
       },
     }),
   ],
