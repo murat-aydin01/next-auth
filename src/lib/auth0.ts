@@ -28,6 +28,9 @@ export const auth0Endpoints = {
   assignRoleToUser: (userId: string) =>
     `${AUTH0_BASE_URL}/users/${encodeURIComponent(userId)}/roles`,
 
+  removeRolesFromUser: (userId: string) =>
+  `${AUTH0_BASE_URL}/users/${encodeURIComponent(userId)}/roles`,
+
 
   roles: `${AUTH0_BASE_URL}/roles`,
 };
