@@ -21,7 +21,7 @@ async function AdminPage() {
 
 
   return users.length > 0 ? (
-    <div>
+    <div className="flex flex-col grow items-center justify-start pt-4 w-full gap-y-4">
       {users.map((user: Auth0User) => (
         <UserCard key={user.user_id} user={user} roles={roles} />
       ))}
