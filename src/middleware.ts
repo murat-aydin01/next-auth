@@ -16,8 +16,7 @@ export async function middleware(request: NextRequest) {
     }
 
     if (isProtectedRoute && !session) {
-        const redirectUrl = new URL("/login", request.url)
-        redirectUrl.searchParams.set("callbackUrl", request.nextUrl.pathname)
+        const redirectUrl = new URL("/", request.url)
         return NextResponse.redirect(redirectUrl)
     }
     
