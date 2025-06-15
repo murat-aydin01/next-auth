@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function UserCard({ user, roles }: Props) {
-  const [selectedRole, setSelectedRole] = useState(user.role);
+  const [selectedRole, setSelectedRole] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChangeRole = async () => {
@@ -23,30 +23,36 @@ export default function UserCard({ user, roles }: Props) {
     setLoading(false);
     if (res.ok) {
       alert("Rol güncellendi");
+      window.location.reload();
     } else {
       alert("Hata oluştu");
     }
   };
 
   return (
-    <div className="border p-4 rounded shadow my-2">
-      <p><strong>{user.email}</strong></p>
-      <select
-        className="border p-1 my-2"
-        value={selectedRole}
-        onChange={(e) => setSelectedRole(e.target.value)}
-      >
-        {roles.map((role) => (
-          <option key={role.id} value={role.id}>
-            {role.name} - {role.description}
-          </option>
-        ))}
-      </select>
-      <button
-        className="ml-2 px-3 py-1 bg-blue-500 text-white rounded"
-        onClick={handleChangeRole}
-        disabled={loading}
-      >
+    <div className="flex flex-col border p-4 rounded-lg  shadow-md w-full max-w-md">
+      <div>
+        <p>{user.email}</p>
+        <p>rol: {user.role}</p>
+      </div>
+      <div className="flex flex-col my-2">
+        <label htmlFor="role-select" className="block mb-2">
+          Rol Seçin:
+        </label>
+        <select
+          className="border p-1 my-2 text-gray-700 rounded bg-amber-50"
+          value={selectedRole}
+          onChange={(e) => {setSelectedRole(e.target.value); console.log(e.target.value);}}
+        >
+          <option value="" disabled>Seçiniz</option>
+          {roles.map((role) => (
+            <option key={role.id} value={role.id}>
+              {role.name} - {role.description}
+            </option>
+          ))}
+        </select>
+      </div>
+      <button onClick={handleChangeRole} disabled={loading || !selectedRole} className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 disabled:opacity-50">
         {loading ? "Kaydediliyor..." : "Kaydet"}
       </button>
     </div>
