@@ -22,7 +22,6 @@ async function fetchUsers() {
     }
 
     const users = await userRes.json();
-    console.log("Fetched users:", users);
     // 2. Her kullanıcı için rollerini çek
     const usersWithRoles = await Promise.all(
       users.map(async (user: Auth0User) => {
@@ -33,15 +32,13 @@ async function fetchUsers() {
         });
 
         const roles = rolesRes.ok ? await rolesRes.json() : [];
-        console.log("Roles for user:", user.user_id, roles);
         return {
-          id: user.user_id,
+          user_id: user.user_id,
           email: user.email,
           name: user.name,
           role: roles[0]?.name || "No Role"
         };
       })
     );
-    console.log("Users with roles:", usersWithRoles);
     return NextResponse.json(usersWithRoles);
 }
